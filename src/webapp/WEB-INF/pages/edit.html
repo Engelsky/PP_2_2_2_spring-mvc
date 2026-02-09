@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        label { display: block; margin-top: 10px; }
+        input { padding: 5px; margin-top: 5px; width: 300px; }
+        button { margin-top: 20px; padding: 10px 20px; background-color: #2196F3; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<h1>Edit User</h1>
+
+<!--/*@thymesVar id="user" type="web.model.User"*/-->
+<form th:method="POST" th:action="@{/users/update}" th:object="${user}">
+    <!-- Скрытое поле ID обязательно! -->
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" th:field="*{lastName}" id="lastName"/>
+
+    <label for="email">Email:</label>
+    <input type="text" th:field="*{email}" id="email"/>
+
+    <br/>
+    <button type="submit">Update User</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <style>
+        /* Простой CSS для красоты */
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+
+        /* Та самая фишка: классы для четных/нечетных строк */
+        .even-row { background-color: #f2f2f2; }
+        .odd-row { background-color: #ffffff; }
+
+        /* Красивые кнопки */
+        .btn { padding: 5px 10px; text-decoration: none; color: white; border-radius: 4px; }
+        .btn-edit { background-color: #2196F3; }
+        .btn-delete { background-color: #f44336; border: none; cursor: pointer;}
+        .btn-new { background-color: #4CAF50; padding: 10px 20px; display: inline-block; margin-top: 20px;}
+    </style>
+</head>
+<body>
+
+<h1>Users Table</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="user, iterStat : ${users}"
+        th:class="${iterStat.odd}? 'odd-row' : 'even-row'">
+
+        <td th:text="${user.id}">VALUE</td>
+        <td th:text="${user.name}">VALUE</td>
+        <td th:text="${user.lastName}">VALUE</td>
+        <td th:text="${user.email}">VALUE</td>
+        <td>
+            <a th:href="@{/users/edit(id=${user.id})}" class="btn btn-edit">Edit</a>
+
+            <form th:action="@{/users/delete}" method="POST" style="display:inline;">
+                <input type="hidden" name="id" th:value="${user.id}"/>
+                <button type="submit" class="btn btn-delete">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/users/new" class="btn btn-new">Create New User</a>
+
+</body>
+</html>
